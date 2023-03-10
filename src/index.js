@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 const form = document.querySelector("#search-form");
 const gallery = document.querySelector('.gallery');
@@ -25,6 +26,9 @@ const makeGallery = async(searchQuery) => {
     try {
         let images = await fetchImages(searchQuery);
         images = images.hits;
+        if (images.length === 0){
+          return Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+        }
         const markup = images
         .map(image => {
             return `<div class="photo-card">
