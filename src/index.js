@@ -83,7 +83,7 @@ const makeGallery = async (searchQuery, pageNumber) => {
   }
 };
 
-searchQuery = sessionStorage.getItem('searchQuery');
+const searchQuery = sessionStorage.getItem('searchQuery');
 
 loadMore.addEventListener('click', () => {
   pageNumber++;
