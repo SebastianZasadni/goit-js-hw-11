@@ -15,7 +15,6 @@
 
 .gallery {
     display: flex;
-
     flex-wrap: wrap;
     gap: 5px;
 }
@@ -25,11 +24,11 @@
 }
 
 .gallery__image {
-    height: 100%;
-    object-fit: cover;
+
+    height: 80%;
+
     display: block;
     width: 100%;
-    margin-bottom: 20px;
 }
 
 .info {
