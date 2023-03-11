@@ -8,13 +8,17 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const form = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
 const loadMore = document.querySelector('.load-more');
+const inputArea = document.querySelector('.input-area');
+const submitBtn = document.querySelector('.submit-button');
 let pageNumber = 1;
 let imagesCount = 40;
 
+inputArea.addEventListener('input', () => submitBtn.disabled = false);
+
 const sendRequest = async event => {
   gallery.innerHTML = '';
-  sessionStorage.clear();
-  event.preventDefault();
+  sessionStorage.removeItem('searchQuery');
+  await event.preventDefault();
   let {
     elements: { searchQuery },
   } = event.currentTarget;
