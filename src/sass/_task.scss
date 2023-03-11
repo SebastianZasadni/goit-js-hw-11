@@ -1,7 +1,8 @@
-.container{
+.container {
     padding: 15px 15px;
 }
-.header{
+
+.header {
     max-width: 1200px;
     height: 100px;
     background-color: grey;
@@ -11,28 +12,32 @@
     gap: 10px;
     outline: none;
 }
-.gallery{
-     display: flex;
-    
+
+.gallery {
+    display: flex;
+
     flex-wrap: wrap;
     gap: 5px;
-        }
+}
 
-.gallery__item{
+.gallery__item {
     flex-basis: calc((100% - 15px) / 4);
 }
-.gallery__image{
+
+.gallery__image {
     height: 100%;
     object-fit: cover;
-    display:block;
+    display: block;
     width: 100%;
     margin-bottom: 20px;
 }
-.info{
+
+.info {
     display: flex;
     gap: 2px;
     text-align: center;
 }
-.load-more{
+
+.load-more {
     visibility: hidden;
 }
