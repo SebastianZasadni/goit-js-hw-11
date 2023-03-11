@@ -48,8 +48,8 @@ const makeGallery = async (searchQuery, pageNumber) => {
     }
     const createGallery = images
       .map(image => {
-        return `<a href="${image.largeImageURL}" class="gallery__link">
-            <img src="${image.webformatURL}" class="gallery__image" alt="${image.tags}" loading="lazy" class="photo-item"/>
+        return `<div class="gallery__item"><a href="${image.largeImageURL}" class="gallery__link">
+            <img src="${image.webformatURL}" class="gallery__image" alt="${image.tags}" loading="lazy"/>
             </a>
             <div class="info">
               <p class="info-item">
@@ -68,6 +68,7 @@ const makeGallery = async (searchQuery, pageNumber) => {
                 <b>Download</b>
                 ${image.downloads}
               </p>
+            </div>
             </div>`;
       })
       .join('');
