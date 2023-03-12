@@ -13,7 +13,7 @@ const submitBtn = document.querySelector('.submit-button');
 let pageNumber = 1;
 let imagesCount = 40;
 
-inputArea.addEventListener('input', () => submitBtn.disabled = false);
+inputArea.addEventListener('input', () => (submitBtn.disabled = false));
 
 const sendRequest = async event => {
   gallery.innerHTML = '';
@@ -87,8 +87,6 @@ const makeGallery = async (searchQuery, pageNumber) => {
   }
 };
 
-const searchQuery = sessionStorage.getItem('searchQuery');
-
 loadMore.addEventListener('click', () => {
   pageNumber++;
   imagesCount += 40;
@@ -97,6 +95,7 @@ loadMore.addEventListener('click', () => {
       `We're sorry, but you've reached the end of search results..`
     );
   }
+  const searchQuery = sessionStorage.getItem('searchQuery');
   makeGallery(searchQuery, pageNumber);
 });
 
