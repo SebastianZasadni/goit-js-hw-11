@@ -1,9 +1,8 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
-// Opisany w dokumentacji
 import SimpleLightbox from 'simplelightbox';
-// Dodatkowy import stylów
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import {scrollend} from 'scrollyfills';
 
 const form = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
@@ -87,7 +86,10 @@ const makeGallery = async (searchQuery, pageNumber) => {
   }
 };
 
-loadMore.addEventListener('click', () => {
+document.addEventListener('scroll', event => {
+  if (scrollY >= 2000){
+    Notiflix.Loading.standard('Loading..');
+  setTimeout(() => { 
   pageNumber++;
   imagesCount += 40;
   if (imagesCount >= sessionStorage.getItem('imagesCount')) {
@@ -96,12 +98,9 @@ loadMore.addEventListener('click', () => {
     );
   }
   const searchQuery = sessionStorage.getItem('searchQuery');
+  Notiflix.Loading.remove();
   makeGallery(searchQuery, pageNumber);
+}, 2000); 
+  }
+  
 });
-
-// const { height: cardHeight } = gallery.getBoundingClientRect();
-
-// window.scrollBy({
-//   top: cardHeight * 2,
-//   behavior: "smooth",
-// });
