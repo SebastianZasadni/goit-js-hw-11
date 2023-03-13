@@ -76,18 +76,18 @@ const makeGallery = async (searchQuery, pageNumber) => {
       })
       .join('');
     gallery.innerHTML = gallery.innerHTML + createGallery;
-    loadMore.style.visibility = 'visible';
-    const lightbox = new SimpleLightbox('.gallery a', {
+        const lightbox = new SimpleLightbox('.gallery a', {
       captionsData: 'alt',
       captionDelay: 250,
     });
-  } catch (error) {
-    console.log(error.message);
+          } catch (error) {
+   
   }
 };
 
 document.addEventListener('scroll', event => {
-  if (scrollY >= 2000){
+  const {scrollTop,clientHeight,scrollHeight} = document.documentElement;
+  if ((scrollTop+clientHeight)>=scrollHeight){
     Notiflix.Loading.standard('Loading..');
   setTimeout(() => { 
   pageNumber++;
@@ -100,7 +100,10 @@ document.addEventListener('scroll', event => {
   const searchQuery = sessionStorage.getItem('searchQuery');
   Notiflix.Loading.remove();
   makeGallery(searchQuery, pageNumber);
-}, 2000); 
-  }
   
-});
+}, 1000); 
+  }
+  });
+
+
+  
