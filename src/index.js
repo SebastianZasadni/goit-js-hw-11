@@ -2,15 +2,13 @@ import axios from 'axios';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import {scrollend} from 'scrollyfills';
+import { scrollend } from 'scrollyfills';
 
 const form = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
-const loadMore = document.querySelector('.load-more');
 const inputArea = document.querySelector('.input-area');
 const submitBtn = document.querySelector('.submit-button');
 let pageNumber = 1;
-let imagesCount = 40;
 
 inputArea.addEventListener('input', () => (submitBtn.disabled = false));
 
@@ -76,34 +74,34 @@ const makeGallery = async (searchQuery, pageNumber) => {
       })
       .join('');
     gallery.innerHTML = gallery.innerHTML + createGallery;
-        const lightbox = new SimpleLightbox('.gallery a', {
+    const lightbox = new SimpleLightbox('.gallery a', {
       captionsData: 'alt',
       captionDelay: 250,
     });
-          } catch (error) {
-   
+    const { height: cardHeight } = document
+      .querySelector('.gallery')
+      .firstElementChild.getBoundingClientRect();
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+  } catch (error) {
+    console.log(error.message);
   }
 };
 
-document.addEventListener('scroll', event => {
-  const {scrollTop,clientHeight,scrollHeight} = document.documentElement;
-  if ((scrollTop+clientHeight)>=scrollHeight){
-    Notiflix.Loading.standard('Loading..');
-  setTimeout(() => { 
-  pageNumber++;
-  imagesCount += 40;
-  if (imagesCount >= sessionStorage.getItem('imagesCount')) {
-    return Notiflix.Notify.info(
-      `We're sorry, but you've reached the end of search results..`
-    );
-  }
-  const searchQuery = sessionStorage.getItem('searchQuery');
-  Notiflix.Loading.remove();
-  makeGallery(searchQuery, pageNumber);
-  
-}, 1000); 
-  }
-  });
+document.addEventListener('scrollend', event => {
+  const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
 
-
-  
+  if (scrollTop + clientHeight >= scrollHeight) {
+      if (pageNumber === 11) {
+      return Notiflix.Notify.info(
+        `We're sorry, but you've reached the end of search results.`
+      );
+    } else {
+      pageNumber++;
+      const searchQuery = sessionStorage.getItem('searchQuery');
+      makeGallery(searchQuery, pageNumber);
+    }
+  }
+});
