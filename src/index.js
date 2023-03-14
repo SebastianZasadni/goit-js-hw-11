@@ -3,6 +3,7 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { scrollend } from 'scrollyfills';
+Notiflix.Notify.init({ position: 'center-bottom' });
 
 const form = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
@@ -23,7 +24,14 @@ const sendRequest = async event => {
   sessionStorage.setItem('searchQuery', searchQuery);
   await makeGallery(searchQuery);
   const totalHits = sessionStorage.getItem('imagesCount');
-  Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+  console.log(totalHits);
+  if (totalHits == 0) {
+    return Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+  } else {
+    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+  }
 };
 
 form.addEventListener('submit', sendRequest);
@@ -42,11 +50,6 @@ const makeGallery = async (searchQuery, pageNumber) => {
     sessionStorage.setItem('imagesCount', images.totalHits);
     images = images.hits;
 
-    if (images.length === 0) {
-      return Notiflix.Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-    }
     const createGallery = images
       .map(image => {
         return `<div class="gallery__item"><a href="${image.largeImageURL}" class="gallery__link">
@@ -94,7 +97,7 @@ document.addEventListener('scrollend', event => {
   const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
 
   if (scrollTop + clientHeight >= scrollHeight) {
-      if (pageNumber === 11) {
+    if (pageNumber === 11) {
       return Notiflix.Notify.info(
         `We're sorry, but you've reached the end of search results.`
       );
