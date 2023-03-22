@@ -1,5 +1,7 @@
 import { fetchImages } from './fetchImages';
 import { scrollend } from 'scrollyfills';
+import { scrollLoading } from './scrollLoading';
+
 const gallery = document.querySelector('.gallery');
 
 export const makeGallery = async (searchQuery, pageNumber) => {
