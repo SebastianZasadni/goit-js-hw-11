@@ -6,7 +6,6 @@ import { sendRequest } from './sendRequest';
 Notiflix.Notify.init({ position: 'center-bottom' });
 
 const form = document.querySelector('#search-form');
-const gallery = document.querySelector('.gallery');
 const inputArea = document.querySelector('.input-area');
 const submitBtn = document.querySelector('.submit-button');
 
